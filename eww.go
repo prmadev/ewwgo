@@ -1,4 +1,4 @@
-package eww
+package ewwgo
 
 import "fmt"
 

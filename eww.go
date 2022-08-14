@@ -2,21 +2,38 @@ package ewwgo
 
 import "fmt"
 
+type Widget struct {
+	Class   string
+	Valign  string
+	Halign  string
+	Vexpand bool
+	Hexpand bool
+	Width   int
+	Heigth  int
+	Active  bool
+	Tooltip string
+	Visible bool
+	Style   string
+}
+
 type Box struct {
-	Class       string
 	Spacing     int
 	Orientation string
 	SpaceEvenly bool
 	Content     []string
+
+	Widget
 }
+
 type Progress struct {
-	Class       string
 	Flipped     bool
 	Orientation string
 	Value       float64
+
+	Widget
 }
+
 type Label struct {
-	Class         string
 	Text          string
 	LimitWidth    int
 	ShowTruncated bool
@@ -25,6 +42,22 @@ type Label struct {
 	Angle         float64
 	Xalign        float64
 	Yalign        float64
+
+	Widget
+}
+
+type Scale struct {
+	Flipped     bool
+	Orientation string
+	Value       float64
+	DrawValue   bool
+	Marks       string
+	Min         float64
+	Max         float64
+	Timeout     string
+	Onchange    string
+
+	Widget
 }
 
 func (b *Box) Printer() string {
@@ -35,6 +68,7 @@ func (b *Box) Printer() string {
 	}
 	return fmt.Sprintf("(box :class '%s' :spacing %d :orientation '%s' :space-evenly %s %s)", b.Class, b.Spacing, b.Orientation, boolToString(b.SpaceEvenly), c)
 }
+
 func (b *Label) Printer() string {
 
 	if b.LimitWidth == 0 {
@@ -69,4 +103,20 @@ func boolToString(b bool) string {
 		return "true"
 	}
 	return "false"
+}
+
+func (s *Scale) Printer() string {
+	class := fmt.Sprintf(":class '%s'", s.Class)
+	flipped := fmt.Sprintf(":flipped %s", boolToString(s.Flipped))
+	orientation := fmt.Sprintf(":orientation '%s'", s.Orientation)
+	value := fmt.Sprintf(":value %f", s.Value)
+	marks := fmt.Sprintf(":marks %s", s.Marks)
+	drawValue := fmt.Sprintf(":draw-value %s", boolToString(s.DrawValue))
+
+	min := fmt.Sprintf(":min %f", s.Min)
+	max := fmt.Sprintf(":max %f", s.Max)
+	timeout := fmt.Sprintf(":timeout %s", s.Timeout)
+	onchange := fmt.Sprintf(":onchange %s", s.Onchange)
+
+	return fmt.Sprintf("(scale %s %s %s %s %s %s %s %s %s %s)", class, flipped, orientation, value, marks, drawValue, min, max, timeout, onchange)
 }

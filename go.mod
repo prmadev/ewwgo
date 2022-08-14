@@ -1,3 +1,3 @@
-module eww-go
+module github.com/amirography/eww-go
 
 go 1.19

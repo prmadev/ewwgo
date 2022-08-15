@@ -17,17 +17,19 @@ type Scale struct {
 }
 
 func (s *Scale) Printer() string {
-	class := fmt.Sprintf(":class '%s'", s.Class)
-	flipped := fmt.Sprintf(":flipped %t", s.Flipped)
-	orientation := fmt.Sprintf(":orientation '%s'", s.Orientation)
-	value := fmt.Sprintf(":value %f", s.Value)
-	// marks := fmt.Sprintf(":marks '%s'", s.Marks)
-	drawValue := fmt.Sprintf(":draw-value %t", s.DrawValue)
+	var attr []string
+	attr = append(attr, fmt.Sprintf(":flipped %t", s.Flipped))
+	attr = append(attr, fmt.Sprintf(":orientation '%s'", s.Orientation))
+	attr = append(attr, fmt.Sprintf(":value %f", s.Value))
+	attr = append(attr, fmt.Sprintf(":marks '%s'", s.Marks))
+	attr = append(attr, fmt.Sprintf(":draw-value %t", s.DrawValue))
+	attr = append(attr, fmt.Sprintf(":min %f", s.Min))
+	attr = append(attr, fmt.Sprintf(":max %f", s.Max))
+	attr = append(attr, fmt.Sprintf(":timeout %s", s.Timeout))
+	attr = append(attr, fmt.Sprintf(":onchange '%s'", s.Onchange))
+	attr = append(attr, s.Widget.Printer()...)
 
-	min := fmt.Sprintf(":min %f", s.Min)
-	max := fmt.Sprintf(":max %f", s.Max)
-	timeout := fmt.Sprintf(":timeout %s", s.Timeout)
-	onchange := fmt.Sprintf(":onchange '%s'", s.Onchange)
+	str := stringBuilder(attr)
 
-	return fmt.Sprintf("(scale %s %s %s %s %s %s %s %s %s)", class, flipped, orientation, value , drawValue, min, max, timeout, onchange)
+	return fmt.Sprintf("(scale %s)", str)
 }

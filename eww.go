@@ -110,13 +110,13 @@ func (s *Scale) Printer() string {
 	flipped := fmt.Sprintf(":flipped %s", boolToString(s.Flipped))
 	orientation := fmt.Sprintf(":orientation '%s'", s.Orientation)
 	value := fmt.Sprintf(":value %f", s.Value)
-	marks := fmt.Sprintf(":marks %s", s.Marks)
+	marks := fmt.Sprintf(":marks [%s]", s.Marks)
 	drawValue := fmt.Sprintf(":draw-value %s", boolToString(s.DrawValue))
 
 	min := fmt.Sprintf(":min %f", s.Min)
 	max := fmt.Sprintf(":max %f", s.Max)
-	timeout := fmt.Sprintf(":timeout %s", s.Timeout)
-	onchange := fmt.Sprintf(":onchange %s", s.Onchange)
+	timeout := fmt.Sprintf(":timeout '%s'", s.Timeout)
+	onchange := fmt.Sprintf(":onchange '%s'", s.Onchange)
 
 	return fmt.Sprintf("(scale %s %s %s %s %s %s %s %s %s %s)", class, flipped, orientation, value, marks, drawValue, min, max, timeout, onchange)
 }

@@ -54,7 +54,7 @@ type Scale struct {
 	Marks       string
 	Min         float64
 	Max         float64
-	Timeout     string
+	Timeout     float64
 	Onchange    string
 
 	Widget
@@ -115,7 +115,7 @@ func (s *Scale) Printer() string {
 
 	min := fmt.Sprintf(":min %f", s.Min)
 	max := fmt.Sprintf(":max %f", s.Max)
-	timeout := fmt.Sprintf(":timeout '%s'", s.Timeout)
+	timeout := fmt.Sprintf(":timeout %f", s.Timeout)
 	onchange := fmt.Sprintf(":onchange '%s'", s.Onchange)
 
 	return fmt.Sprintf("(scale %s %s %s %s %s %s %s %s %s %s)", class, flipped, orientation, value, marks, drawValue, min, max, timeout, onchange)

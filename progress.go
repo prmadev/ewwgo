@@ -18,4 +18,5 @@ func (p *Progress) Printer() string {
 	active := fmt.Sprintf(":active %t", p.Active)
 
 	return fmt.Sprintf("(progress %s %s %s %s %s)",active, class, flipped, orientation, value)
+
 }

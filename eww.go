@@ -110,7 +110,7 @@ func (s *Scale) Printer() string {
 	flipped := fmt.Sprintf(":flipped %s", boolToString(s.Flipped))
 	orientation := fmt.Sprintf(":orientation '%s'", s.Orientation)
 	value := fmt.Sprintf(":value %f", s.Value)
-	marks := fmt.Sprintf(":marks [%s]", s.Marks)
+	marks := fmt.Sprintf(":marks '%s'", s.Marks)
 	drawValue := fmt.Sprintf(":draw-value %s", boolToString(s.DrawValue))
 
 	min := fmt.Sprintf(":min %f", s.Min)

@@ -19,15 +19,15 @@ type Widget struct {
 func (w Widget) Printer() []string {
 	var ws []string
 
-	ws = append(ws, fmt.Sprintf(":class '%s'", w.Class))
-	ws = append(ws, fmt.Sprintf(":valign '%s'", w.Valign))
-	ws = append(ws, fmt.Sprintf(":halign '%s'", w.Halign))
-	ws = append(ws, fmt.Sprintf(":width %d", w.Width))
-	ws = append(ws, fmt.Sprintf(":height %d", w.Height))
-	ws = append(ws, fmt.Sprintf(":active %t", w.Active))
-	ws = append(ws, fmt.Sprintf(":tooltip '%s'", w.Tooltip))
-	ws = append(ws, fmt.Sprintf(":visible %t", w.Visible))
-	ws = append(ws, fmt.Sprintf(":style '%s'", w.Style))
+	ws = append(ws, fmt.Sprintf(":class '%s' ", w.Class))
+	ws = append(ws, fmt.Sprintf(":valign '%s' ", w.Valign))
+	ws = append(ws, fmt.Sprintf(":halign '%s' ", w.Halign))
+	ws = append(ws, fmt.Sprintf(":width %d ", w.Width))
+	ws = append(ws, fmt.Sprintf(":height %d ", w.Height))
+	ws = append(ws, fmt.Sprintf(":active %t ", w.Active))
+	ws = append(ws, fmt.Sprintf(":tooltip '%s '", w.Tooltip))
+	ws = append(ws, fmt.Sprintf(":visible %t ", w.Visible))
+	ws = append(ws, fmt.Sprintf(":style '%s' ", w.Style))
 
 	return ws
 }

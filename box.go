@@ -11,7 +11,7 @@ type Box struct {
 	Widget
 }
 
-func (b *Box) Printer() string {
+func (b Box) Printer() string {
 
 	var c string
 	for _, v := range b.Content {

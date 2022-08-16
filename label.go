@@ -15,7 +15,7 @@ type Label struct {
 	Widget
 }
 
-func (b *Label) Printer() string {
+func (b Label) Printer() string {
 
 	if b.LimitWidth == 0 {
 		b.LimitWidth = 30

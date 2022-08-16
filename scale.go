@@ -16,7 +16,7 @@ type Scale struct {
 	Widget
 }
 
-func (s *Scale) Printer() string {
+func (s Scale) Printer() string {
 	var attr []string
 	attr = append(attr, fmt.Sprintf(":flipped %t", s.Flipped))
 	attr = append(attr, fmt.Sprintf(":orientation '%s'", s.Orientation))

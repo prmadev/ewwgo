@@ -10,7 +10,7 @@ type Progress struct {
 	Widget
 }
 
-func (p *Progress) Printer() string {
+func (p Progress) Printer() string {
 	class := fmt.Sprintf(":class '%s'", p.Class)
 	flipped := fmt.Sprintf(":flipped %t", p.Flipped)
 	orientation := fmt.Sprintf(":orientation '%s'", p.Orientation)

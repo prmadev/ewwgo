@@ -27,7 +27,7 @@ func (s Scale) Printer() string {
 	// attr = append(attr, fmt.Sprintf(":max %f ", s.Max))
 	// attr = append(attr, fmt.Sprintf(":timeout %s ", s.Timeout))
 	// attr = append(attr, fmt.Sprintf(":onchange '%s' ", s.Onchange))
-	attr = append(attr, s.Widget.Printer()...)
+	// attr = append(attr, s.Widget.Printer()...)
 
 	str := stringBuilder(attr)
 

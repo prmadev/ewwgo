@@ -20,7 +20,7 @@ func (s Scale) Printer() string {
 	var attr []string
 	attr = append(attr, fmt.Sprintf(":flipped %t ", s.Flipped))
 	attr = append(attr, fmt.Sprintf(":orientation '%s' ", s.Orientation))
-	attr = append(attr, fmt.Sprintf(":value %f ", s.Value))
+	// attr = append(attr, fmt.Sprintf(":value %f ", s.Value))
 	attr = append(attr, fmt.Sprintf(":marks '%s' ", s.Marks))
 	attr = append(attr, fmt.Sprintf(":draw-value %t ", s.DrawValue))
 	// attr = append(attr, fmt.Sprintf(":min %f ", s.Min))

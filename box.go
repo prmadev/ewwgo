@@ -42,11 +42,6 @@ func (m *Box) SetSpacing(d int) error {
 	return nil
 }
 
-func (m *Box) SetActive(t bool) error {
-	m.Active = t
-	return nil
-}
-
 func (m *Box) SetOrientation(s string) error {
 	if s != "v" && s != "h" && s != "vertical" && s != "horizontal" {
 		return errors.New("err: should be v or h or vertical or horizontal")
@@ -59,6 +54,14 @@ func (m *Box) SetOrientation(s string) error {
 
 func (m *Box) SetSpaceEvenly(t bool) error {
 	m.SpaceEvenly = t
+
+	return nil
+}
+
+
+func (m *Box) AppendContent(w string ) error {
+	m.Content = append(m.Content, w) 
+
 
 	return nil
 }

@@ -16,7 +16,7 @@ type General struct {
 	Active  bool
 	Tooltip string
 	Visible bool
-	Style   string
+	Style   Css
 }
 
 func (m General) String() []string {
@@ -36,6 +36,7 @@ func (m General) String() []string {
 }
 
 func NewGeneral() *General {
+	m := make(Css)
 	g := &General{
 		Class:   "",
 		Valign:  "center",
@@ -47,7 +48,7 @@ func NewGeneral() *General {
 		Active:  false,
 		Tooltip: "",
 		Visible: true,
-		Style:   "",
+		Style:   m,
 	}
 
 	return g
@@ -121,8 +122,14 @@ func (m *General) SetVisible(b bool) error {
 	return nil
 }
 
-func (m *General) SetStyle(s string) error {
+func (m *General) SetStyle(s map[string]string) error {
 	m.Style = s
+
+	return nil
+}
+
+func (m *General) ModifyStyle(k, v string) error {
+	m.Style[k] = v
 
 	return nil
 }

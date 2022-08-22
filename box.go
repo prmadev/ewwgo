@@ -8,7 +8,7 @@ type Box struct {
 	Spacing     int
 	Orientation string
 	SpaceEvenly bool
-	Content     []*Widget
+	Content     []Widget
 
 	*General
 }
@@ -21,8 +21,7 @@ func (m *Box) String() string {
 	attr = append(attr, fmt.Sprintf(":space-evenly '%t'", m.SpaceEvenly))
 	attr = append(attr, m.General.String()...)
 	for _, w := range m.Content {
-		dw := *w
-		attr = append(attr, dw.String())
+		attr = append(attr, w.String())
 	}
 
 	return fmt.Sprintf("(box %s)", stringBuilder(attr))
@@ -63,7 +62,7 @@ func (m *Box) SetSpaceEvenly(t bool) *Box {
 	return m
 }
 
-func (m *Box) AppendContent(ws ...*Widget) *Box {
+func (m *Box) AppendContent(ws ...Widget) *Box {
 	for _, w := range ws {
 		m.Content = append(m.Content, w)
 	}

@@ -63,8 +63,10 @@ func (m *Box) SetSpaceEvenly(t bool) *Box {
 	return m
 }
 
-func (m *Box) AppendContent(w *Widget) *Box {
-	m.Content = append(m.Content, w)
+func (m *Box) AppendContent(ws ...*Widget) *Box {
+	for _, w := range ws {
+		m.Content = append(m.Content, w)
+	}
 
 	return m
 }

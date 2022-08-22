@@ -14,7 +14,7 @@ func (m *Css) String() string {
 
 	for k, v := range *m {
 		l := fmt.Sprintf("%s: %s;", k, v)
-		s = s + l
+		s += l
 	}
 
 	return s

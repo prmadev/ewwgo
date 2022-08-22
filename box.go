@@ -1,7 +1,6 @@
 package ewwgo
 
 import (
-	"errors"
 	"fmt"
 )
 
@@ -9,18 +8,24 @@ type Box struct {
 	Spacing     int
 	Orientation string
 	SpaceEvenly bool
-	Content     []string
+	Content     []*Widget
 
 	*General
 }
 
 func (m *Box) String() string {
-
-	var c string
-	for _, v := range m.Content {
-		c = c + v
+	var attr []string
+	attr = append(attr, m.General.String()...)
+	attr = append(attr, fmt.Sprintf(":spacing %d", m.Spacing))
+	attr = append(attr, fmt.Sprintf(":orientation '%s'", m.Orientation))
+	attr = append(attr, fmt.Sprintf(":space-evenly '%t'", m.SpaceEvenly))
+	attr = append(attr, m.General.String()...)
+	for _, w := range m.Content {
+		dw := *w
+		attr = append(attr, dw.String())
 	}
-	return fmt.Sprintf("(box :class '%s' :spacing %d :orientation '%s' :space-evenly %t %s)", m.Class, m.Spacing, m.Orientation, m.SpaceEvenly, c)
+
+	return fmt.Sprintf("(box %s)", stringBuilder(attr))
 }
 
 func NewBox() *Box {
@@ -37,37 +42,35 @@ func NewBox() *Box {
 	return b
 }
 
-func (m *Box) SetSpacing(d int) error {
+func (m *Box) SetSpacing(d int) *Box {
 	m.Spacing = d
-	return nil
+	return m
 }
 
-func (m *Box) SetOrientation(s string) error {
+func (m *Box) SetOrientation(s string) *Box {
 	if s != "v" && s != "h" && s != "vertical" && s != "horizontal" {
-		return errors.New("err: should be v or h or vertical or horizontal")
+		return m
 	}
 
 	m.Orientation = s
 
-	return nil
+	return m
 }
 
-func (m *Box) SetSpaceEvenly(t bool) error {
+func (m *Box) SetSpaceEvenly(t bool) *Box {
 	m.SpaceEvenly = t
 
-	return nil
+	return m
 }
 
+func (m *Box) AppendContent(w *Widget) *Box {
+	m.Content = append(m.Content, w)
 
-func (m *Box) AppendContent(w string ) error {
-	m.Content = append(m.Content, w) 
-
-
-	return nil
+	return m
 }
 
-func (m *Box) SetGeneral(g *General) error {
+func (m *Box) SetGeneral(g *General) *Box {
 	m.General = g
 
-	return nil
+	return m
 }

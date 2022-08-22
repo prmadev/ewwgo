@@ -1,7 +1,6 @@
 package ewwgo
 
 import (
-	"errors"
 	"fmt"
 )
 
@@ -23,13 +22,20 @@ func (m General) String() []string {
 	var ws []string
 
 	ws = append(ws, fmt.Sprintf(":class '%s' ", m.Class))
+
 	ws = append(ws, fmt.Sprintf(":valign '%s' ", m.Valign))
 	ws = append(ws, fmt.Sprintf(":halign '%s' ", m.Halign))
+
+	ws = append(ws, fmt.Sprintf(":vexpand %t ", m.Vexpand))
+	ws = append(ws, fmt.Sprintf(":hexpand %t ", m.Hexpand))
+
 	ws = append(ws, fmt.Sprintf(":width %d ", m.Width))
 	ws = append(ws, fmt.Sprintf(":height %d ", m.Height))
+
 	ws = append(ws, fmt.Sprintf(":active %t ", m.Active))
-	ws = append(ws, fmt.Sprintf(":tooltip '%s '", m.Tooltip))
 	ws = append(ws, fmt.Sprintf(":visible %t ", m.Visible))
+
+	ws = append(ws, fmt.Sprintf(":tooltip '%s '", m.Tooltip))
 	ws = append(ws, fmt.Sprintf(":style '%s' ", m.Style))
 
 	return ws
@@ -54,82 +60,82 @@ func NewGeneral() *General {
 	return g
 }
 
-func (m *General) SetClass(s string) error {
+func (m *General) SetClass(s string) *General {
 	m.Class = s
 
-	return nil
+	return m
 }
 
-func (m *General) SetValign(s string) error {
+func (m *General) SetValign(s string) *General {
 	if s != "fill" && s != "baseline" && s != "center" && s != "start" && s != "end" {
-		return errors.New("err: value should be either fill, baseline, center, start or end")
+		return m
 	}
 
 	m.Valign = s
 
-	return nil
+	return m
 }
 
-func (m *General) SetXalign(s string) error {
+func (m *General) SetHalign(s string) *General {
 	if s != "fill" && s != "baseline" && s != "center" && s != "start" && s != "end" {
-		return errors.New("err: value should be either fill, baseline, center, start or end")
+		return m
 	}
 
 	m.Halign = s
 
-	return nil
+	return m
 }
 
-func (m *General) SetHexpand(t bool) error {
+func (m *General) SetHexpand(t bool) *General {
 	m.Hexpand = t
 
-	return nil
+	return m
 }
 
-func (m *General) SetVexpand(t bool) error {
+func (m *General) SetVexpand(t bool) *General {
 	m.Vexpand = t
 
-	return nil
+	return m
 }
 
-func (m *General) SetWidth(d int) error {
+func (m *General) SetWidth(d int) *General {
 	m.Width = d
 
-	return nil
+	return m
 }
 
-func (m *General) SetHeight(d int) error {
+func (m *General) SetHeight(d int) *General {
 	m.Height = d
 
-	return nil
+	return m
 }
 
-func (m *General) SetActive(t bool) error {
+func (m *General) SetActive(t bool) *General {
 	m.Active = t
 
-	return nil
+	return m
 }
 
-func (m *General) SetTooltip(s string) error {
+func (m *General) SetTooltip(s string) *General {
 	m.Tooltip = s
 
-	return nil
+	return m
 }
 
-func (m *General) SetVisible(b bool) error {
+func (m *General) SetVisible(b bool) *General {
 	m.Visible = b
 
-	return nil
+	return m
 }
 
-func (m *General) SetStyle(s map[string]string) error {
+func (m *General) SetStyle(s map[string]string) *General {
 	m.Style = s
 
-	return nil
+	return m
 }
 
-func (m *General) ModifyStyle(k, v string) error {
+func (m *General) ModifyStyle(k, v string) *General {
 	m.Style[k] = v
 
-	return nil
+	return m
 }

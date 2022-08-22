@@ -1,7 +1,6 @@
 package ewwgo
 
 import (
-	"errors"
 	"fmt"
 )
 
@@ -13,15 +12,14 @@ type Progress struct {
 	*General
 }
 
-func (p Progress) String() string {
-	class := fmt.Sprintf(":class '%s' ", p.Class)
-	flipped := fmt.Sprintf(":flipped %t ", p.Flipped)
-	orientation := fmt.Sprintf(":orientation '%s' ", p.Orientation)
-	value := fmt.Sprintf(":value %f ", p.Value)
-	active := fmt.Sprintf(":active %t ", p.Active)
+func (m *Progress) String() string {
+	var attr []string
+	attr = append(attr, fmt.Sprintf(":orientation '%s' ", m.Orientation))
+	attr = append(attr, fmt.Sprintf(":flipped %t ", m.Flipped))
+	attr = append(attr, fmt.Sprintf(":value %f ", m.Value))
+	attr = append(attr, m.General.String()...)
 
-	return fmt.Sprintf("(progress %s %s %s %s %s)", active, class, flipped, orientation, value)
-
+	return fmt.Sprintf("(progress %s)", stringBuilder(attr))
 }
 
 func NewProgress() *Progress {
@@ -38,30 +36,33 @@ func NewProgress() *Progress {
 	return p
 }
 
-func (m *Progress) SetFlipped(t bool) error {
+func (m *Progress) SetFlipped(t bool) *Progress {
 	m.Flipped = t
 
-	return nil
+	return m
 }
 
-func (m *Progress) SetOrientation(s string) error {
+func (m *Progress) SetOrientation(s string) *Progress {
 	if s != "v" && s != "h" && s != "vertical" && s != "horizontal" {
-		return errors.New("err: should be v or h or vertical or horizontal")
+		return m
 	}
 
 	m.Orientation = s
 
-	return nil
+	return m
 }
 
-func (m *Progress) SetValue(f float64) error {
+func (m *Progress) SetValue(f float64) *Progress {
+	if f > 100 {
+		return m
+	}
 	m.Value = f
 
-	return nil
+	return m
 }
 
-func (m *Progress) SetGeneral(g *General) error {
+func (m *Progress) SetGeneral(g *General) *Progress {
 	m.General = g
 
-	return nil
+	return m
 }

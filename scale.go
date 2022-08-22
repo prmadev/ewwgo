@@ -1,7 +1,6 @@
 package ewwgo
 
 import (
-	"errors"
 	"fmt"
 )
 
@@ -15,6 +14,7 @@ type Scale struct {
 	Max         float64
 	Timeout     string
 	Onchange    string
+	RoundDigits int
 
 	*General
 }
@@ -24,17 +24,16 @@ func (m Scale) String() string {
 	attr = append(attr, fmt.Sprintf(":flipped %t ", m.Flipped))
 	attr = append(attr, fmt.Sprintf(":orientation '%s' ", m.Orientation))
 	attr = append(attr, fmt.Sprintf(":value %f ", m.Value))
-	// attr = append(attr, fmt.Sprintf(":marks '%s' ", s.Marks)) //unstable
+	attr = append(attr, fmt.Sprintf(":marks '%s' ", m.Marks)) // unstable
 	attr = append(attr, fmt.Sprintf(":draw-value %t ", m.DrawValue))
 	attr = append(attr, fmt.Sprintf(":min %f ", m.Min))
 	attr = append(attr, fmt.Sprintf(":max %f ", m.Max))
-	// attr = append(attr, fmt.Sprintf(":timeout %s ", s.Timeout))
+	attr = append(attr, fmt.Sprintf(":timeout %s ", m.Timeout))
 	attr = append(attr, fmt.Sprintf(":onchange '%s' ", m.Onchange))
+	attr = append(attr, fmt.Sprintf(":round-digits %d ", m.RoundDigits))
 	attr = append(attr, m.General.String()...)
 
-	str := stringBuilder(attr)
-
-	return fmt.Sprintf("(scale %s)", str)
+	return fmt.Sprintf("(scale %s)", stringBuilder(attr))
 }
 
 func NewScale() *Scale {
@@ -50,6 +49,7 @@ func NewScale() *Scale {
 		Max:         100,
 		Timeout:     "10s",
 		Onchange:    "",
+		RoundDigits: 1,
 
 		General: g,
 	}
@@ -57,68 +57,71 @@ func NewScale() *Scale {
 	return s
 }
 
-func (m *Scale) SetGeneral(g *General) error {
+func (m *Scale) SetGeneral(g *General) *Scale {
 	m.General = g
 
 	return nil
 }
 
-func (m *Scale) SetFlipped(t bool) error {
+func (m *Scale) SetFlipped(t bool) *Scale {
 	m.Flipped = t
 
 	return nil
 }
 
-func (m *Scale) SetDrawValue(t bool) error {
+func (m *Scale) SetDrawValue(t bool) *Scale {
 	m.DrawValue = t
 
 	return nil
 }
 
-func (m *Scale) SetValue(f float64) error {
+func (m *Scale) SetValue(f float64) *Scale {
 	m.Value = f
 
-	return nil
+	return m
 }
 
-func (m *Scale) SetOrientation(s string) error {
+func (m *Scale) SetRoundDigits(d int) *Scale {
+	m.RoundDigits = d
+
+	return m
+}
+func (m *Scale) SetOrientation(s string) *Scale {
 	if s != "v" && s != "h" && s != "vertical" && s != "horizontal" {
-		return errors.New("err: should be v or h or vertical or horizontal")
+		return m
 	}
 
 	m.Orientation = s
 
-	return nil
+	return m
 }
 
-func (m *Scale) SetMarks(s string) error {
+func (m *Scale) SetMarks(s string) *Scale {
 	m.Marks = s
 
-	return nil
+	return m
 }
 
-func (m *Scale) SetMin(f float64) error {
+func (m *Scale) SetMin(f float64) *Scale {
 	m.Min = f
 
-	return nil
+	return m
 }
 
-func (m *Scale) SetMax(f float64) error {
+func (m *Scale) SetMax(f float64) *Scale {
 	m.Max = f
 
-	return nil
+	return m
 }
 
-func (m *Scale) SetTimeout(s string) error {
+func (m *Scale) SetTimeout(s string) *Scale {
 	m.Timeout = s
 
-	return nil
+	return m
 }
 
-
-func (m *Scale) SetOnChange(s string) error {
+func (m *Scale) SetOnChange(s string) *Scale {
 	m.Onchange = s
 
-	return nil
+	return m
 }
-

@@ -1,7 +1,6 @@
 package ewwgo
 
 import (
-	"errors"
 	"fmt"
 )
 
@@ -19,22 +18,18 @@ type Label struct {
 }
 
 func (m Label) String() string {
-	if m.LimitWidth == 0 {
-		m.LimitWidth = 30
-	}
+	var attr []string
+	attr = append(attr, fmt.Sprintf(":text '%s' ", m.Text))
+	attr = append(attr, fmt.Sprintf(":limit-width %d ", m.LimitWidth))
+	attr = append(attr, fmt.Sprintf(":markup %t", m.Markup))
+	attr = append(attr, fmt.Sprintf(":wrap %t", m.Wrap))
+	attr = append(attr, fmt.Sprintf(":angle %f", m.Angle))
+	attr = append(attr, fmt.Sprintf(":xalign %f", m.Xalign))
+	attr = append(attr, fmt.Sprintf(":yalign %f", m.Yalign))
+	attr = append(attr, fmt.Sprintf(":show-truncated %t", m.ShowTruncated))
+	attr = append(attr, m.General.String()...)
 
-	class := fmt.Sprintf(":class '%s' ", m.Class)
-	text := fmt.Sprintf(":text '%s' ", m.Text)
-	limitWidth := fmt.Sprintf(":limit-width %d ", m.LimitWidth)
-	// markup := ""
-	// markup := fmt.Sprintf(":markup %s", boolToString(b.Markup))
-	// wrap := fmt.Sprintf(":wrap %s", boolToString(b.Wrap))
-	// wrap := ""
-	angle := fmt.Sprintf(":angle %f ", m.Angle)
-	xalign := fmt.Sprintf(":xalign %f ", m.Xalign)
-	yalign := fmt.Sprintf(":yalign %f ", m.Yalign)
-
-	return fmt.Sprintf("(label %s %s %s %s %s %s)", class, text, limitWidth, angle, xalign, yalign)
+	return fmt.Sprintf("(label %s)", stringBuilder(attr))
 }
 
 func NewLabel() *Label {
@@ -56,62 +51,62 @@ func NewLabel() *Label {
 	return l
 }
 
-func (m *Label) SetText(s string) error {
+func (m *Label) SetText(s string) *Label {
 	m.Text = s
 
-	return nil
+	return m
 }
 
-func (m *Label) SetLimitWidth(d int) error {
+func (m *Label) SetLimitWidth(d int) *Label {
 	m.LimitWidth = d
 
-	return nil
+	return m
 }
 
-func (m *Label) SetShowTruncated(t bool) error {
+func (m *Label) SetShowTruncated(t bool) *Label {
 	m.ShowTruncated = t
 
-	return nil
+	return m
 }
 
-func (m *Label) SetMarkup(t bool) error {
+func (m *Label) SetMarkup(t bool) *Label {
 	m.Markup = t
 
-	return nil
+	return m
 }
 
-func (m *Label) SetWrap(t bool) error {
+func (m *Label) SetWrap(t bool) *Label {
 	m.Wrap = t
 
-	return nil
+	return m
 }
 
-func (m *Label) SetAngle(f float64) error {
+func (m *Label) SetAngle(f float64) *Label {
 	m.Angle = f
 
-	return nil
+	return m
 }
 
-func (m *Label) SetXAlign(f float64) error {
+func (m *Label) SetXAlign(f float64) *Label {
 	if f > 1 {
-		return errors.New("err: cannot be more than 1")
+		return m
 	}
 	m.Xalign = f
 
-	return nil
+	return m
 }
 
-func (m *Label) SetYAlign(f float64) error {
+func (m *Label) SetYAlign(f float64) *Label {
 	if f > 1 {
-		return errors.New("err: cannot be more than 1")
+		return m
 	}
 	m.Yalign = f
 
-	return nil
+	return m
 }
 
-func (m *Label) SetGeneral(g *General) error {
+func (m *Label) SetGeneral(g *General) *Label {
 	m.General = g
 
-	return nil
+	return m
 }

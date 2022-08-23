@@ -36,13 +36,14 @@ func (m General) String() []string {
 	ws = append(ws, fmt.Sprintf(":visible %t ", m.Visible))
 
 	ws = append(ws, fmt.Sprintf(":tooltip '%s '", m.Tooltip))
-	ws = append(ws, fmt.Sprintf(":style '%s' ", m.Style))
+	ws = append(ws, fmt.Sprintf(":style '%s' ", m.Style.String()))
 
 	return ws
 }
 
 func NewGeneral() *General {
 	m := make(Css)
+
 	g := &General{
 		Class:   "",
 		Valign:  "center",

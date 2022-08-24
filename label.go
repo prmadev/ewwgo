@@ -21,12 +21,12 @@ func (m Label) String() string {
 	var attr []string
 	attr = append(attr, fmt.Sprintf(":text '%s' ", m.Text))
 	attr = append(attr, fmt.Sprintf(":limit-width %d ", m.LimitWidth))
-	attr = append(attr, fmt.Sprintf(":markup %t", m.Markup))
+	// attr = append(attr, fmt.Sprintf(":markup %t", m.Markup))
 	attr = append(attr, fmt.Sprintf(":wrap %t", m.Wrap))
 	attr = append(attr, fmt.Sprintf(":angle %f", m.Angle))
 	attr = append(attr, fmt.Sprintf(":xalign %f", m.Xalign))
 	attr = append(attr, fmt.Sprintf(":yalign %f", m.Yalign))
-	// attr = append(attr, fmt.Sprintf(":show_truncated %t", m.ShowTruncated))
+	attr = append(attr, fmt.Sprintf(":show_truncated %t", m.ShowTruncated))
 	attr = append(attr, m.General.String()...)
 
 	return fmt.Sprintf("(label %s)", stringBuilder(attr))

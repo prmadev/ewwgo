@@ -26,7 +26,7 @@ func (m Label) String() string {
 	attr = append(attr, fmt.Sprintf(":angle %f", m.Angle))
 	attr = append(attr, fmt.Sprintf(":xalign %f", m.Xalign))
 	attr = append(attr, fmt.Sprintf(":yalign %f", m.Yalign))
-	attr = append(attr, fmt.Sprintf(":show-truncated %t", m.ShowTruncated))
+	attr = append(attr, fmt.Sprintf(":show_truncated %t", m.ShowTruncated))
 	attr = append(attr, m.General.String()...)
 
 	return fmt.Sprintf("(label %s)", stringBuilder(attr))

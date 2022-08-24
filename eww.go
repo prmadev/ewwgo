@@ -1,7 +1,7 @@
 package ewwgo
 
 func stringBuilder(ss []string) string{
-	s := ""
+	s := " "
 	for _, v := range ss {
 		s += " "
 		s += v

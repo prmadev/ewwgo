@@ -15,7 +15,6 @@ type Box struct {
 
 func (m *Box) String() string {
 	var attr []string
-	attr = append(attr, m.General.String()...)
 	attr = append(attr, fmt.Sprintf(":spacing %d", m.Spacing))
 	attr = append(attr, fmt.Sprintf(":orientation '%s'", m.Orientation))
 	attr = append(attr, fmt.Sprintf(":space-evenly '%t'", m.SpaceEvenly))

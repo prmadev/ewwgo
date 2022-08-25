@@ -19,7 +19,7 @@ type Scale struct {
 	*General
 }
 
-func (m Scale) String() string {
+func (m *Scale) String() string {
 	var attr []string
 	attr = append(attr, fmt.Sprintf(":flipped %t ", m.Flipped))
 	attr = append(attr, fmt.Sprintf(":orientation '%s' ", m.Orientation))

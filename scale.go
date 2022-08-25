@@ -44,11 +44,11 @@ func NewScale() *Scale {
 		Orientation: "h",
 		Value:       0,
 		DrawValue:   false,
-		Marks:       "",
+		Marks:       " ",
 		Min:         0,
 		Max:         100,
 		Timeout:     "10s",
-		Onchange:    "",
+		Onchange:    " ",
 		RoundDigits: 1,
 
 		General: g,

@@ -30,7 +30,7 @@ func (m Scale) String() string {
 	attr = append(attr, fmt.Sprintf(":max %f ", m.Max))
 	attr = append(attr, fmt.Sprintf(":timeout '%s' ", m.Timeout))
 	attr = append(attr, fmt.Sprintf(":onchange '%s' ", m.Onchange))
-	attr = append(attr, fmt.Sprintf(":round_digits %d ", m.RoundDigits))
+	// attr = append(attr, fmt.Sprintf(":round_digits %d ", m.RoundDigits))
 	attr = append(attr, m.General.String()...)
 
 	return fmt.Sprintf("(scale %s)", stringBuilder(attr))

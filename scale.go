@@ -60,19 +60,19 @@ func NewScale() *Scale {
 func (m *Scale) SetGeneral(g *General) *Scale {
 	m.General = g
 
-	return nil
+	return m 
 }
 
 func (m *Scale) SetFlipped(t bool) *Scale {
 	m.Flipped = t
 
-	return nil
+	return m 
 }
 
 func (m *Scale) SetDrawValue(t bool) *Scale {
 	m.DrawValue = t
 
-	return nil
+	return m 
 }
 
 func (m *Scale) SetValue(f float64) *Scale {

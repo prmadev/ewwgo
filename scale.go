@@ -24,7 +24,7 @@ func (m Scale) String() string {
 	attr = append(attr, fmt.Sprintf(":flipped %t ", m.Flipped))
 	attr = append(attr, fmt.Sprintf(":orientation '%s' ", m.Orientation))
 	attr = append(attr, fmt.Sprintf(":value %f ", m.Value))
-	attr = append(attr, fmt.Sprintf(":marks '%s' ", m.Marks)) // unstable
+	// attr = append(attr, fmt.Sprintf(":marks '%s' ", m.Marks)) // unstable
 	attr = append(attr, fmt.Sprintf(":draw-value %t ", m.DrawValue))
 	attr = append(attr, fmt.Sprintf(":min %f ", m.Min))
 	attr = append(attr, fmt.Sprintf(":max %f ", m.Max))

@@ -7,9 +7,6 @@ type BoxOption interface {
 	Apply(*Box)
 }
 
-// Name string specifies a name for the widget
-type Name string
-
 // Apply method applies the name to the given box
 func (m Name) Apply(in *Box) {
 	in.Name = string(m)

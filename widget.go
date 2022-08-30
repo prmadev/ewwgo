@@ -9,7 +9,6 @@ type Widget interface {
 
 // WidgetDetails implements dummy info for widgetes
 type WidgetDetails struct {
-	Name       string        // the user given name, it is optional
 	Attributes *AttributeSet // a pointer to attributeset
 	Type       string        // this is the type used to tag the structure in yuck. for example a Type "box" will create a "(box )" string
 	Children   []Widget      // the children widgets only some of the widgets have children, they will implement the Parent interface

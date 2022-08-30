@@ -1,74 +1,52 @@
 package ewwgo
 
-import (
-	"fmt"
-)
+// Box type is a widget of type WidgetDetails
+// You should not instantiate a Box directly
+// use NewBox() function
+type Box WidgetDetails
 
-type Box struct {
-	Spacing     int
-	Orientation string
-	SpaceEvenly bool
-	Content     []Widget
+//
+// implement as Widget
+//
 
-	*General
+// GetWidget method returns the details of the receiver box.
+// Mostly used to the purpose of converting to string
+func (m *Box) GetWidget() WidgetDetails {
+	return WidgetDetails(*m)
 }
 
-func (m *Box) String() string {
-	var attr []string
-	attr = append(attr, fmt.Sprintf(":spacing %d", m.Spacing))
-	attr = append(attr, fmt.Sprintf(":orientation '%s'", m.Orientation))
-	attr = append(attr, fmt.Sprintf(":space-evenly '%t'", m.SpaceEvenly))
-	attr = append(attr, m.General.String()...)
-	for _, w := range m.Content {
-		attr = append(attr, w.String())
+// GetAttributes method returns a pointer to attributes so to be changed by the any Option.Apply function
+func (m *Box) GetAttributes() *AttributeSet {
+	return m.Attributes
+}
+
+//
+// implemet as Parent
+//
+
+// GetChildren method recieves a pointer to the slice of children widgets
+func (m *Box) GetChildren() *[]Widget {
+	return &m.Children
+}
+
+// UpdateChildren method updates the reciever Children field with the input widgets
+func (m *Box) UpdateChildren(in *[]Widget) {
+	m.Children = *in
+}
+
+//
+// Misc
+//
+
+// NewBox Function Returns a new widet of type box with field of type "Box"
+func NewBox(options ...BoxOption) *Box {
+	var b Box
+	b.Type = "box"
+	b.Attributes, _ = NewAttributeSet()
+
+	for _, option := range options {
+		option.Apply(&b)
 	}
 
-	return fmt.Sprintf("(box %s)", stringBuilder(attr))
-}
-
-func NewBox() *Box {
-	g := NewGeneral()
-
-	b := &Box{
-		Spacing:     0,
-		Orientation: "h",
-		SpaceEvenly: false,
-
-		General: g,
-	}
-
-	return b
-}
-
-func (m *Box) SetSpacing(d int) *Box {
-	m.Spacing = d
-	return m
-}
-
-func (m *Box) SetOrientation(s string) *Box {
-	if s != "v" && s != "h" && s != "vertical" && s != "horizontal" {
-		return m
-	}
-
-	m.Orientation = s
-
-	return m
-}
-
-func (m *Box) SetSpaceEvenly(t bool) *Box {
-	m.SpaceEvenly = t
-
-	return m
-}
-
-func (m *Box) AppendContent(ws ...Widget) *Box {
-	m.Content = append(m.Content, ws...)
-
-	return m
-}
-
-func (m *Box) SetGeneral(g *General) *Box {
-	m.General = g
-
-	return m
+	return &b
 }

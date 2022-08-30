@@ -4,139 +4,113 @@ import (
 	"fmt"
 )
 
-type General struct {
-	Class   string
-	Valign  string
-	Halign  string
-	Vexpand bool
-	Hexpand bool
-	Width   int
-	Height  int
-	Active  bool
-	Tooltip string
-	Visible bool
-	Style   Css
+// GeneralValueParams interface implements generic type parameters that acts as input for the attributes that are used by every widget
+type GeneralValueParams interface {
+	~int | ~string | ~float64 | ~bool
 }
 
-func (m General) String() []string {
-	var ws []string
+// ApplyGeneralBox is a function that is used as a helper for Apply method for the ease of use of general Attributes
+func ApplyGeneralBox[P GeneralValueParams](attrs *AttributeSet, key string, param P, wrap bool) {
+	a, _ := NewAttribute(key, fmt.Sprint(param), wrap)
 
-	ws = append(ws, fmt.Sprintf(":class '%s' ", m.Class))
-
-	ws = append(ws, fmt.Sprintf(":valign '%s' ", m.Valign))
-	ws = append(ws, fmt.Sprintf(":halign '%s' ", m.Halign))
-
-	ws = append(ws, fmt.Sprintf(":vexpand %t ", m.Vexpand))
-	ws = append(ws, fmt.Sprintf(":hexpand %t ", m.Hexpand))
-
-	ws = append(ws, fmt.Sprintf(":width %d ", m.Width))
-	ws = append(ws, fmt.Sprintf(":height %d ", m.Height))
-
-	ws = append(ws, fmt.Sprintf(":active %t ", m.Active))
-	ws = append(ws, fmt.Sprintf(":visible %t ", m.Visible))
-
-	ws = append(ws, fmt.Sprintf(":tooltip '%s '", m.Tooltip))
-	ws = append(ws, fmt.Sprintf(":style '%s' ", m.Style.String()))
-
-	return ws
+	AddAttributes(attrs, a)
 }
 
-func NewGeneral() *General {
-	m := make(Css)
+// Class is a general Attribute of type string
+type Class string
 
-	g := &General{
-		Class:   "",
-		Valign:  "center",
-		Halign:  "center",
-		Vexpand: false,
-		Hexpand: false,
-		Width:   0,
-		Height:  0,
-		Active:  false,
-		Tooltip: "",
-		Visible: true,
-		Style:   m,
+// Apply method applies the the Class Attribute to the give widget
+func (m Class) Apply(in Widget) {
+	ApplyGeneralBox(in.GetAttributes(), "class", m, true)
+}
+
+// TODO Document
+type Valign string
+
+// TODO Document
+func (m Valign) Apply(in Widget) {
+	ApplyGeneralBox(in.GetAttributes(), "valign", m, true)
+}
+
+// TODO Document
+type Halign string
+
+// TODO Document
+func (m Halign) Apply(in Widget) {
+	ApplyGeneralBox(in.GetAttributes(), "halign", m, true)
+}
+
+// TODO Document
+type Hexpand bool
+
+// TODO Document
+func (m Hexpand) Apply(in Widget) {
+	ApplyGeneralBox(in.GetAttributes(), "hexpand", fmt.Sprint(m), false)
+}
+
+// TODO Document
+type Vexpand bool
+
+// TODO Document
+func (m Vexpand) Apply(in Widget) {
+	ApplyGeneralBox(in.GetAttributes(), "Vexpand", fmt.Sprint(m), false)
+}
+
+// TODO Document
+type Width int
+
+// TODO Document
+func (m Width) Apply(in Widget) {
+	ApplyGeneralBox(in.GetAttributes(), "width", fmt.Sprint(m), false)
+}
+
+// TODO Document
+type Height int
+
+// TODO Document
+func (m Height) Apply(in Widget) {
+	ApplyGeneralBox(in.GetAttributes(), "heigth", fmt.Sprint(m), false)
+}
+
+// TODO Document
+type Active bool
+
+// TODO Document
+func (m Active) Apply(in Widget) {
+	ApplyGeneralBox(in.GetAttributes(), "Active", fmt.Sprint(m), false)
+}
+
+// TODO Document
+type Visible bool
+
+// TODO Document
+func (m Visible) Apply(in Widget) {
+	ApplyGeneralBox(in.GetAttributes(), "Visible", fmt.Sprint(m), false)
+}
+
+// TODO Document
+type Tooltip string
+
+// TODO Document
+func (m Tooltip) Apply(in Widget) {
+	ApplyGeneralBox(in.GetAttributes(), "tooltip", m, true)
+}
+
+// TODO Document
+type Style map[string]string
+
+// TODO Document
+func (m Style) String() string {
+	var s string
+
+	for k, v := range m {
+		s += fmt.Sprintf("%s: %s; ", k, v)
 	}
 
-	return g
+	return s
 }
 
-func (m *General) SetClass(s string) *General {
-	m.Class = s
-
-	return m
-}
-
-func (m *General) SetValign(s string) *General {
-	if s != "fill" && s != "baseline" && s != "center" && s != "start" && s != "end" {
-		return m
-	}
-
-	m.Valign = s
-
-	return m
-}
-
-func (m *General) SetHalign(s string) *General {
-	if s != "fill" && s != "baseline" && s != "center" && s != "start" && s != "end" {
-		return m
-	}
-
-	m.Halign = s
-
-	return m
-}
-
-func (m *General) SetHexpand(t bool) *General {
-	m.Hexpand = t
-
-	return m
-}
-
-func (m *General) SetVexpand(t bool) *General {
-	m.Vexpand = t
-
-	return m
-}
-
-func (m *General) SetWidth(d int) *General {
-	m.Width = d
-
-	return m
-}
-
-func (m *General) SetHeight(d int) *General {
-	m.Height = d
-
-	return m
-}
-
-func (m *General) SetActive(t bool) *General {
-	m.Active = t
-
-	return m
-}
-
-func (m *General) SetTooltip(s string) *General {
-	m.Tooltip = s
-
-	return m
-}
-
-func (m *General) SetVisible(b bool) *General {
-	m.Visible = b
-
-	return m
-}
-
-func (m *General) SetStyle(s map[string]string) *General {
-	m.Style = s
-
-	return m
-}
-
-func (m *General) ModifyStyle(k, v string) *General {
-	m.Style[k] = v
-
-	return m
+// TODO Document
+func (m Style) Apply(in Widget) {
+	ApplyGeneralBox(in.GetAttributes(), "style", m.String(), true)
 }

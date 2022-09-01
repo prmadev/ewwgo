@@ -30,17 +30,23 @@ func (m *Box) GetChildren() *[]Widget {
 }
 
 // UpdateChildren method updates the reciever Children field with the input widgets
-func (m *Box) UpdateChildren(in *[]Widget) {
+func (m *Box) UpdateChildren(in *[]Widget) *Box {
 	m.Children = *in
+	return m
 }
 
 //
 // Misc
 //
 
+type BoxOpt interface {
+	BoxOption | GeneralOptions
+}
+
 // NewBox Function Returns a new widet of type box with field of type "Box"
-func NewBox(options ...BoxOption) *Box {
+func NewBox(options ...BoxOpt) *Box {
 	var b Box
+
 	b.Type = "box"
 	b.Attributes, _ = NewAttributeSet()
 

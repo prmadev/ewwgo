@@ -20,6 +20,11 @@ func (m *Label) GetAttributes() *AttributeSet {
 	return m.Attributes
 }
 
+// GetOrientorAttributes method returns a pointer to attributes so to be changed by the any Option.Apply function
+func (m *Label) GetOrientorAttributes() *AttributeSet {
+	return m.Attributes
+}
+
 //
 // Misc
 //

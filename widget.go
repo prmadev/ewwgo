@@ -18,7 +18,7 @@ type WidgetDetails struct {
 func StringWidget(m Widget) string {
 	var s string
 
-	s += m.GetWidget().Type + " "
+	s += m.GetWidget().Type
 	s += m.GetWidget().Attributes.String()
 
 	for _, w := range m.GetWidget().Children {
@@ -27,7 +27,7 @@ func StringWidget(m Widget) string {
 		s += StringWidget(w)
 	}
 
-	s += "(" + s + ")"
+	s = "(" + s + ")"
 
 	return s
 }

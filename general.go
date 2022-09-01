@@ -4,6 +4,10 @@ import (
 	"fmt"
 )
 
+type GeneralOptions interface {
+	Apply(Widget)
+}
+
 // GeneralValueParams interface implements generic type parameters that acts as input for the attributes that are used by every widget
 type GeneralValueParams interface {
 	~int | ~string | ~float64 | ~bool

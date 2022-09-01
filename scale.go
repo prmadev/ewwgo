@@ -1,53 +1,38 @@
 package ewwgo
 
-// TODO Implement Scale type
+// Scale type is a widget of type WidgetDetails
+// You should not instantiate a Scale directly
+// use NewScale() function
+type Scale WidgetDetails
 
-// type Scale struct {
-// 	Flipped     bool
-// 	Orientation string
-// 	Value       float64
-// 	DrawValue   bool
-// 	Marks       string
-// 	Min         float64
-// 	Max         float64
-// 	Timeout     string
-// 	Onchange    string
-// 	RoundDigits int
+//
+// implement as Widget
+//
 
-// 	*General
-// }
+// GetWidget method returns the details of the receiver Scale.
+// Mostly used to the purpose of converting to string
+func (m *Scale) GetWidget() WidgetDetails {
+	return WidgetDetails(*m)
+}
 
-// func (m *Scale) String() string {
-// 	var attr []string
-// 	attr = append(attr, fmt.Sprintf(":flipped %t ", m.Flipped))
-// 	attr = append(attr, fmt.Sprintf(":orientation '%s' ", m.Orientation))
-// 	attr = append(attr, fmt.Sprintf(":value %f ", m.Value))
-// 	// attr = append(attr, fmt.Sprintf(":marks '%s' ", m.Marks)) // unstable
-// 	attr = append(attr, fmt.Sprintf(":draw-value %t ", m.DrawValue))
-// 	attr = append(attr, fmt.Sprintf(":min %f ", m.Min))
-// 	attr = append(attr, fmt.Sprintf(":max %f ", m.Max))
-// 	attr = append(attr, fmt.Sprintf(":timeout '%s' ", m.Timeout))
-// 	attr = append(attr, fmt.Sprintf(":onchange '%s' ", m.Onchange))
-// 	// attr = append(attr, fmt.Sprintf(":round_digits %d ", m.RoundDigits))
-// 	attr = append(attr, m.General.String()...)
+// GetAttributes method returns a pointer to attributes so to be changed by the any Option.Apply function
+func (m *Scale) GetAttributes() *AttributeSet {
+	return m.Attributes
+}
 
-// 	return fmt.Sprintf("(scale %s)", stringBuilder(attr))
-// }
+//
+// Misc
+//
 
-// func NewScale() *Scale {
-// 	g := NewGeneral()
+// NewScale Function Returns a new widet of type Scale with field of type "Scale"
+func NewScale(options ...ScaleOption) *Scale {
+	var b Scale
+	b.Type = "Scale"
+	b.Attributes, _ = NewAttributeSet()
 
-// 	s := &Scale{
-// 		Flipped:     false,
-// 		Orientation: "h",
-// 		Value:       0,
-// 		DrawValue:   false,
-// 		Marks:       " ",
-// 		Min:         0,
-// 		Max:         100,
-// 		Timeout:     "10s",
-// 		Onchange:    " ",
-// 		RoundDigits: 1,
+	for _, option := range options {
+		option.Apply(&b)
+	}
 
-// 		General: g,
-// 	}
+	return &b
+}

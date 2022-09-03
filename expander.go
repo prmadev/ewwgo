@@ -1,36 +1,14 @@
 package ewwgo
 
-// TODO implement Expander type
+func NewExpander(opts ...OptFunc) *Widget {
+	var b Widget
 
-// type Expander struct {
-// 	Name     string
-// 	Expanded bool
-// 	Content  []Widget
+	b.Type = "expander"
+	b.Attributes = NewAttributeSet()
 
-// 	*General
-// }
+	for _, opt := range opts {
+		opt(&b)
+	}
 
-// func (m *Expander) String() string {
-// 	var attr []string
-// 	attr = append(attr, fmt.Sprintf(":name '%s'", m.Name))
-// 	attr = append(attr, fmt.Sprintf(":expanded %t", m.Expanded))
-// 	attr = append(attr, m.General.String()...)
-// 	for _, w := range m.Content {
-// 		attr = append(attr, w.String())
-// 	}
-
-// 	return fmt.Sprintf("(expander %s)", stringBuilder(attr))
-// }
-
-// func NewExpander() *Expander {
-// 	g := NewGeneral()
-
-// 	b := &Expander{
-// 		Name:     "",
-// 		Expanded: false,
-
-// 		General: g,
-// 	}
-
-// 	return b
-// }
+	return &b
+}

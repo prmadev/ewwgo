@@ -6,12 +6,12 @@ import (
 	"github.com/amirography/ewwgo"
 )
 
-func TestNewBox(t *testing.T) {
+func TestNewLabel(t *testing.T) {
 	t.Parallel()
 
 	a := ewwgo.NewAttributeSet(ewwgo.NewAttribute("class", "test", true))
-	var want ewwgo.Widget = ewwgo.Widget{Type: "box", Attributes: a}
-	g := ewwgo.NewBox(ewwgo.Class("test"))
+	var want ewwgo.Widget = ewwgo.Widget{Type: "label", Attributes: a}
+	g := ewwgo.NewLabel(ewwgo.Class("test"))
 	got := *g
 	if len(want.Attributes) != len(got.Attributes) {
 		t.Errorf("want %v, got %v", want, got)

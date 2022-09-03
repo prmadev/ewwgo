@@ -1,120 +1,111 @@
 package ewwgo
 
-import (
-	"fmt"
+import "fmt"
+
+type AlignType string
+
+const (
+	FILL     AlignType = "fill"
+	BASELINE AlignType = "baseline"
+	CENTER   AlignType = "center"
+	START    AlignType = "start"
+	END      AlignType = "end"
 )
 
-type GeneralOptions interface {
-	Apply(Widget)
+func Class(in string) OptFunc {
+	return func(wid *Widget) {
+		key := "class"
+		a := NewAttribute(key, fmt.Sprint(in), true)
+		wid.Attributes[key] = a
+	}
 }
 
-// GeneralValueParams interface implements generic type parameters that acts as input for the attributes that are used by every widget
-type GeneralValueParams interface {
-	~int | ~string | ~float64 | ~bool
+func Valign(in AlignType) OptFunc {
+	return func(wid *Widget) {
+		key := "Valign"
+		a := NewAttribute(key, fmt.Sprint(in), true)
+		wid.Attributes[key] = a
+	}
 }
 
-// ApplyGeneralBox is a function that is used as a helper for Apply method for the ease of use of general Attributes
-func ApplyGeneralBox[P GeneralValueParams](attrs *AttributeSet, key string, param P, wrap bool) {
-	a, _ := NewAttribute(key, fmt.Sprint(param), wrap)
-
-	AddAttributes(attrs, a)
+func Halign(in AlignType) OptFunc {
+	return func(wid *Widget) {
+		key := "Halign"
+		a := NewAttribute(key, fmt.Sprint(in), true)
+		wid.Attributes[key] = a
+	}
 }
 
-// Class is a general Attribute of type string
-type Class string
-
-// Apply method applies the the Class Attribute to the give widget
-func (m Class) Apply(in Widget) {
-	ApplyGeneralBox(in.GetAttributes(), "class", m, true)
+func Hexpand(in bool) OptFunc {
+	return func(wid *Widget) {
+		key := "Hexpand"
+		a := NewAttribute(key, fmt.Sprint(in), false)
+		wid.Attributes[key] = a
+	}
 }
 
-// TODO Document
-type Valign string
-
-// TODO Document
-func (m Valign) Apply(in Widget) {
-	ApplyGeneralBox(in.GetAttributes(), "valign", m, true)
+func Vexpand(in bool) OptFunc {
+	return func(wid *Widget) {
+		key := "Vexpand"
+		a := NewAttribute(key, fmt.Sprint(in), false)
+		wid.Attributes[key] = a
+	}
 }
 
-// TODO Document
-type Halign string
-
-// TODO Document
-func (m Halign) Apply(in Widget) {
-	ApplyGeneralBox(in.GetAttributes(), "halign", m, true)
+func Width(in int) OptFunc {
+	return func(wid *Widget) {
+		key := "width"
+		a := NewAttribute(key, fmt.Sprint(in), false)
+		wid.Attributes[key] = a
+	}
 }
 
-// TODO Document
-type Hexpand bool
-
-// TODO Document
-func (m Hexpand) Apply(in Widget) {
-	ApplyGeneralBox(in.GetAttributes(), "hexpand", fmt.Sprint(m), false)
+func Heigth(in int) OptFunc {
+	return func(wid *Widget) {
+		key := "heigth"
+		a := NewAttribute(key, fmt.Sprint(in), false)
+		wid.Attributes[key] = a
+	}
 }
 
-// TODO Document
-type Vexpand bool
-
-// TODO Document
-func (m Vexpand) Apply(in Widget) {
-	ApplyGeneralBox(in.GetAttributes(), "Vexpand", fmt.Sprint(m), false)
+func Active(in bool) OptFunc {
+	return func(wid *Widget) {
+		key := "active"
+		a := NewAttribute(key, fmt.Sprint(in), false)
+		wid.Attributes[key] = a
+	}
 }
 
-// TODO Document
-type Width int
-
-// TODO Document
-func (m Width) Apply(in Widget) {
-	ApplyGeneralBox(in.GetAttributes(), "width", fmt.Sprint(m), false)
+func Visible(in bool) OptFunc {
+	return func(wid *Widget) {
+		key := "visible"
+		a := NewAttribute(key, fmt.Sprint(in), false)
+		wid.Attributes[key] = a
+	}
 }
 
-// TODO Document
-type Height int
-
-// TODO Document
-func (m Height) Apply(in Widget) {
-	ApplyGeneralBox(in.GetAttributes(), "heigth", fmt.Sprint(m), false)
+func Tooltip(in string) OptFunc {
+	return func(wid *Widget) {
+		key := "tooltip"
+		a := NewAttribute(key, fmt.Sprint(in), true)
+		wid.Attributes[key] = a
+	}
 }
 
-// TODO Document
-type Active bool
-
-// TODO Document
-func (m Active) Apply(in Widget) {
-	ApplyGeneralBox(in.GetAttributes(), "Active", fmt.Sprint(m), false)
-}
-
-// TODO Document
-type Visible bool
-
-// TODO Document
-func (m Visible) Apply(in Widget) {
-	ApplyGeneralBox(in.GetAttributes(), "Visible", fmt.Sprint(m), false)
-}
-
-// TODO Document
-type Tooltip string
-
-// TODO Document
-func (m Tooltip) Apply(in Widget) {
-	ApplyGeneralBox(in.GetAttributes(), "tooltip", m, true)
-}
-
-// TODO Document
-type Style map[string]string
-
-// TODO Document
-func (m Style) String() string {
+func PrintStyle(in map[string]string) string {
 	var s string
 
-	for k, v := range m {
+	for k, v := range in {
 		s += fmt.Sprintf("%s: %s; ", k, v)
 	}
 
 	return s
 }
 
-// TODO Document
-func (m Style) Apply(in Widget) {
-	ApplyGeneralBox(in.GetAttributes(), "style", m.String(), true)
+func Style(in map[string]string) OptFunc {
+	return func(wid *Widget) {
+		key := "style"
+		a := NewAttribute(key, fmt.Sprint(PrintStyle(in)), true)
+		wid.Attributes[key] = a
+	}
 }

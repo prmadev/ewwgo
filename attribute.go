@@ -17,13 +17,13 @@ type Attribute struct {
 
 // String method creates a string representation of receiver attribute
 func (m *Attribute) String() string {
-	k := m.Key
+	v := m.Value
 
 	if m.Wrap {
-		k = "'" + k + "'"
+		v = "'" + v + "'"
 	}
 
-	return fmt.Sprintf(":%s %s", m.Key, m.Value)
+	return fmt.Sprintf(":%s %s", m.Key, v)
 }
 
 // NewAttribute func returns a pointer to new Attribute.

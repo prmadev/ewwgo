@@ -17,6 +17,7 @@ func TestAttrs(t *testing.T) {
 	}
 	tcs := []testCase{
 		{of: ewwgo.Class("test"), input: "test", atrName: "class", on: *ewwgo.NewBox()},
+		{of: ewwgo.Spacing(2), input: 2, atrName: "spacing", on: *ewwgo.NewBox()},
 		{of: ewwgo.Valign(ewwgo.BASELINE), input: "baseline", atrName: "valign", on: *ewwgo.NewBox()},
 		{of: ewwgo.Halign("center"), input: ewwgo.CENTER, atrName: "halign", on: *ewwgo.NewProgress()},
 		{of: ewwgo.Vexpand(true), input: true, atrName: "vexpand", on: *ewwgo.NewLabel()},
@@ -37,6 +38,31 @@ func testerfunc(t *testing.T, of ewwgo.OptFunc, input any, atrName string, on ew
 	got, want := on, on
 	got.Option(of)
 	want.Attributes = ewwgo.NewAttributeSet(ewwgo.NewAttribute(atrName, fmt.Sprint(input), true))
+
+	if len(want.Attributes) != len(got.Attributes) {
+		t.Errorf("want %v, got %v", want, got)
+	}
+}
+
+func TestCheck(t *testing.T) {
+	t.Parallel()
+	type testCase struct {
+		of      ewwgo.OptFunc
+		input   any
+		atrName string
+		on      ewwgo.Widget
+		wanted  ewwgo.Widget
+	}
+	tcs := []testCase{
+		{of: ewwgo.Spacing(2), input: 2, atrName: "spacing", on: *ewwgo.NewExpander(), wanted: *ewwgo.NewExpander()},
+	}
+	for _, tc := range tcs {
+		checktesterfunc(t, tc.of, tc.input, tc.atrName, tc.on, tc.wanted)
+	}
+}
+
+func checktesterfunc(t *testing.T, of ewwgo.OptFunc, input any, atrName string, got ewwgo.Widget, want ewwgo.Widget) {
+	got.Option(of)
 
 	if len(want.Attributes) != len(got.Attributes) {
 		t.Errorf("want %v, got %v", want, got)

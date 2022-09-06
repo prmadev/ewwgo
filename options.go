@@ -46,28 +46,28 @@ func Class(in string) OptFunc {
 
 func Valign(in AlignType) OptFunc {
 	return func(wid *Widget) {
-		key := "Valign"
+		key := "valign"
 		wid.Attributes[key] = NewAttribute(key, fmt.Sprint(in), true)
 	}
 }
 
 func Halign(in AlignType) OptFunc {
 	return func(wid *Widget) {
-		key := "Halign"
+		key := "halign"
 		wid.Attributes[key] = NewAttribute(key, fmt.Sprint(in), true)
 	}
 }
 
 func Hexpand(in bool) OptFunc {
 	return func(wid *Widget) {
-		key := "Hexpand"
+		key := "hexpand"
 		wid.Attributes[key] = NewAttribute(key, fmt.Sprint(in), false)
 	}
 }
 
 func Vexpand(in bool) OptFunc {
 	return func(wid *Widget) {
-		key := "Vexpand"
+		key := "vexpand"
 		wid.Attributes[key] = NewAttribute(key, fmt.Sprint(in), false)
 	}
 }
